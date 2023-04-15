@@ -1,0 +1,14 @@
+.list-disc {
+  list-style-type: none;
+  margin-left: 1.5em;
+  padding-left: 0;
+}
+
+.list-disc li:before {
+  content: "\2713";
+  color: green;
+  font-size: 1.2em;
+  display: inline-block;
+  width: 1em;
+  margin-left: -1.5em;
+}

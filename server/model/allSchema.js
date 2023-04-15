@@ -23,7 +23,8 @@ const tripSchema = new mongoose.Schema(
   {
     placeName: { type: String, required: true },
     description: { type: String },
-    duration: { type: Number, required: true },
+    startdate: { type: Date, required: true },
+    enddate: { type: Date, required: true },
     price: { type: Number, required: true },
     images: [String],
     inclusions: { type: [String] },
@@ -37,7 +38,13 @@ const tripSchema = new mongoose.Schema(
         },
       },
     ],
-    available: { type: Boolean, default: true },
+    available: {
+      type: Boolean,
+      set: function (v) {
+        return String(v) === "true";
+      },
+      default: true,
+    },
   },
   { timestamps: true }
 );

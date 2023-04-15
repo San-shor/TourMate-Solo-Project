@@ -1,23 +1,27 @@
 import { useState } from "react";
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 const initialState = {
   placeName: "",
   description: "",
-  duration: "",
+  startdate: "",
+  enddate: "",
   price: "",
   images: "",
   inclusions: "",
   category: "",
-  available: "",
+  available: "true",
 };
-const AddTrip = ({ fetchdata }) => {
+const AddTrip = () => {
   const [trip, setTrip] = useState(initialState);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const newValue = name === "available" ? value === "true" : value;
+    console.log(name, value);
     setTrip((prevState) => ({
       ...prevState,
-      [name]: newValue,
+      [name]: value,
     }));
   };
 
@@ -33,6 +37,7 @@ const AddTrip = ({ fetchdata }) => {
       });
       if (response.ok) {
         const data = await response.json();
+        console.log(trip);
         setTrip(initialState);
 
         alert("Trip added successfully!");
@@ -76,16 +81,38 @@ const AddTrip = ({ fetchdata }) => {
         <div className="sm:grid sm:grid-cols-2 sm:gap-6">
           <div className="mt-4 sm:mt-0">
             <label className="label">
-              <span className="label-text">Duration</span>
-              <input
-                name="duration"
-                value={trip.duration}
-                onChange={handleChange}
-                type="text"
+              <span className="label-text">Going Date</span>
+              <DatePicker
+                name="date"
+                selected={trip.startdate}
+                onChange={(date) =>
+                  setTrip((prevState) => ({
+                    ...prevState,
+                    startdate: date,
+                  }))
+                }
                 className="input input-bordered w-full max-w-xs"
-              />
+              ></DatePicker>
             </label>
           </div>
+          <div>
+            <label className="label">
+              <span className="label-text">End date</span>
+              <DatePicker
+                name="date"
+                selected={trip.enddate}
+                onChange={(date) =>
+                  setTrip((prevState) => ({
+                    ...prevState,
+                    enddate: date,
+                  }))
+                }
+                className="input input-bordered w-full max-w-xs"
+              ></DatePicker>
+            </label>
+          </div>
+        </div>
+        <div className="sm:grid sm:grid-cols-2 sm:gap-6">
           <div>
             <label className="label">
               <span className="label-text">Price</span>
@@ -98,20 +125,19 @@ const AddTrip = ({ fetchdata }) => {
               />
             </label>
           </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Images</span>
+              <input
+                type="file"
+                name="images"
+                value={trip.images}
+                onChange={handleChange}
+                className="input input-bordered w-full max-w-xs"
+              />
+            </label>
+          </div>
         </div>
-        <div>
-          <label className="label">
-            <span className="label-text">Images</span>
-            <input
-              type="file"
-              name="images"
-              value={trip.images}
-              onChange={handleChange}
-              className="input input-bordered w-full max-w-xs"
-            />
-          </label>
-        </div>
-
         <div className="sm:grid sm:grid-cols-2 sm:gap-6">
           <div className="mt-4 sm:mt-0">
             <label className="label">
@@ -132,17 +158,16 @@ const AddTrip = ({ fetchdata }) => {
               name="available"
               value={trip.available}
               onChange={handleChange}
+              defaultValue="true"
             >
-              <option disabled selected>
-                Available
-              </option>
-              <option value={true}>True</option>
-              <option value={false}>False</option>
+              <option disabled>Available</option>
+              <option value="true"> True</option>
+              <option value="false">False</option>
             </select>
           </div>
         </div>
-        <div className="mt-6">
-          <button type="submit" className="btn btn-primary">
+        <div className="mt-1">
+          <button type="submit" className="btn btn-primary ">
             Submit
           </button>
         </div>

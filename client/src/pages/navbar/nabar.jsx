@@ -1,10 +1,6 @@
-import { Link, Routes, Route } from "react-router-dom";
-import Register from "../../componets/register";
-import Login from "../../componets/login/login";
-import RequestTrip from "../../componets/RequestTRip/request";
-import TripPackages from "../../componets/trip/trippackages";
+import { Link } from "react-router-dom";
 
-const Navbar = ({ setIsAuthenticated }) => {
+const Navbar = () => {
   return (
     <div className="container">
       <div className="navbar">
@@ -17,7 +13,7 @@ const Navbar = ({ setIsAuthenticated }) => {
         </div>
         <nav>
           <li>
-            <Link to="/">Ready-Book-Trip</Link>
+            <Link to="/trip">Ready-Book-Trip</Link>
           </li>
           <li>
             <Link to="/">Request Trip</Link>
@@ -31,18 +27,6 @@ const Navbar = ({ setIsAuthenticated }) => {
           </li>
         </nav>
       </div>
-      <Routes>
-        <Route path="/request" element={<RequestTrip />} />
-        <Route path="/trip" element={<TripPackages />} />
-        <Route
-          path="/register"
-          element={<Register setIsAuthenticated={setIsAuthenticated} />}
-        ></Route>
-        <Route
-          path="/login"
-          element={<Login setIsAuthenticated={setIsAuthenticated} />}
-        ></Route>
-      </Routes>
     </div>
   );
 };

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const TripList = ({ trip }) => {
   return (
-    <div className=" flex justify-between text-center overflow-x-auto mx-auto">
+    <div className=" flex justify-between text-center overflow-x-auto ">
       <div>
         <table className="table w-6">
           <thead>
@@ -10,11 +10,9 @@ const TripList = ({ trip }) => {
               <th></th>
               <th>Place Name</th>
               <th>Description</th>
-              <th>Duration</th>
-              <th>Images</th>
-              <th>Venue</th>
+              <th>Start Date</th>
+              <th>End Date</th>
               <th>Inclusions</th>
-              <th>Category</th>
               <th>Request</th>
               <th>Available</th>
             </tr>
@@ -26,10 +24,10 @@ const TripList = ({ trip }) => {
                   <td>{index + 1}</td>
                   <td>{list.placeName}</td>
                   <td>{list.description}</td>
-                  <td>{list.duration}</td>
-                  <td>{list.images}</td>
+                  <td>{list.startdate}</td>
+                  <td>{list.enddate}</td>
                   <td>{list.inclusions}</td>
-                  <td>{list.category}</td>
+
                   <td>{list.requests}</td>
                   <td>{list.available.toString()}</td>
                 </tr>

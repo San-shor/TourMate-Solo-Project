@@ -18,7 +18,7 @@ const Dashboard = () => {
         <ul>
           <li>
             <Link
-              to="/"
+              to="/admin"
               className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white nav-link"
             >
               <FontAwesomeIcon icon={faHome} className="mr-2" />
@@ -27,7 +27,7 @@ const Dashboard = () => {
           </li>
           <li>
             <Link
-              to="/triplist"
+              to="/admin/triplist"
               className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white  nav-link"
             >
               <FontAwesomeIcon icon={faSuitcase} className="mr-2" />
@@ -36,7 +36,7 @@ const Dashboard = () => {
           </li>
           <li>
             <Link
-              to="/addTrip"
+              to="/admin/addTrip"
               className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white  nav-link"
             >
               <FontAwesomeIcon icon={faPlus} className="mr-2" />
@@ -45,7 +45,7 @@ const Dashboard = () => {
           </li>
           <li>
             <Link
-              to="/users"
+              to="/admin/users"
               className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white  nav-link"
             >
               <FontAwesomeIcon icon={faUsers} className="mr-2" />
