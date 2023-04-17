@@ -67,7 +67,7 @@ const TripDetails = ({ tripid }) => {
             >
               Book Now
             </button>
-            <BookingFormModal showModal={showModal} />
+            <BookingFormModal showModal={showModal} trip={tripId} />
           </div>
         </div>
       </div>

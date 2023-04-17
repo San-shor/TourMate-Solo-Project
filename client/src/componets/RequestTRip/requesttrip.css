@@ -1,0 +1,30 @@
+.trip-card {
+  width: 100px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  border-radius: 5px;
+}
+
+@media (min-width: 640px) {
+  .trip-card {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .image-container {
+    margin-right: 1rem;
+  }
+
+  .flex-between {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .date {
+    margin-top: 0.5rem;
+  }
+}

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Modal from "react-modal";
 import "./App.css";
 import Home from "./pages/home/home";
 import Navbar from "./pages/navbar/nabar";
@@ -14,6 +15,7 @@ import RequestTrip from "./componets/RequestTRip/request";
 import TripPackages from "./componets/trip/trippackages";
 import TripDetails from "./componets/admin/addtrip/tripDetails";
 import Admin from "./componets/admin/admin";
+import Profile from "./componets/profile/profile";
 
 function App() {
   const [trip, setTrip] = useState([]);
@@ -38,14 +40,15 @@ function App() {
             path="/"
             element={
               <>
-                <Navbar />
+                <Navbar isAuthenticated={isAuthenticated} />
                 <Home />
               </>
             }
           />
-          <Route path="/request" element={<RequestTrip />} />
-          <Route path="/trip" element={<TripPackages frontendTrip={trip} />} />
+          <Route path="/request" element={<RequestTrip FalseTrip={trip} />} />
+          <Route path="/trip" element={<TripPackages TrueTrip={trip} />} />
           <Route path="/details/:id" element={<TripDetails tripid={trip} />} />
+          <Route path="/profile" element={<Profile />} />
           <Route
             path="/register"
             element={<Register setIsAuthenticated={setIsAuthenticated} />}

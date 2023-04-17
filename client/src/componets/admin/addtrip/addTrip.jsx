@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
+import "./addtrip.css";
 
 import "react-datepicker/dist/react-datepicker.css";
 const initialState = {
@@ -49,7 +50,7 @@ const AddTrip = () => {
     }
   };
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="add-trip mx-auto px-4 py-6 ">
       <h1 className="text-2xl font-semibold mb-4">Add a New Trip</h1>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
         <div className="sm:grid sm:grid-cols-2 sm:gap-6">
@@ -113,7 +114,7 @@ const AddTrip = () => {
           </div>
         </div>
         <div className="sm:grid sm:grid-cols-2 sm:gap-6">
-          <div>
+          <div className="mt-4 sm:mt-0">
             <label className="label">
               <span className="label-text">Price</span>
               <input
@@ -151,19 +152,21 @@ const AddTrip = () => {
               />
             </label>
           </div>
-          <div className="mt-4 sm:mt-0">
-            <label className="label"></label>
-            <select
-              className="select select-bordered w-full max-w-xs"
-              name="available"
-              value={trip.available}
-              onChange={handleChange}
-              defaultValue="true"
-            >
-              <option disabled>Available</option>
-              <option value="true"> True</option>
-              <option value="false">False</option>
-            </select>
+          <div>
+            <label className="label">
+              <span className="label-text">Category</span>
+              <select
+                className="select select-bordered w-full max-w-xs"
+                name="available"
+                value={trip.available}
+                onChange={handleChange}
+                defaultValue="true"
+              >
+                <option disabled>Available</option>
+                <option value="true"> True</option>
+                <option value="false">False</option>
+              </select>
+            </label>
           </div>
         </div>
         <div className="mt-1">

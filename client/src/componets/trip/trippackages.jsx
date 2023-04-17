@@ -1,28 +1,14 @@
 import { Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import "./trip.css";
-const TripPackages = ({ frontendTrip }) => {
-  const ref = useRef(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
-
-  useEffect(() => {
-    if (ref.current) {
-      setScrollPosition(ref.current.scrollTop);
-    }
-  }, []);
-
-  const scroll = (scrollOffset) => {
-    const container = document.getElementById("trip-container");
-    container.scrollTop += scrollOffset;
-    setScrollPosition(container.scrollTop);
-  };
-
+const TripPackages = ({ TrueTrip }) => {
+  const availableTrips = TrueTrip.filter((trip) => trip.available === true);
   return (
     <div className="flex flex-col items-center justify-center">
       <span className="span">Check Our Best Promotional Trip</span>
       <h2 className="block mb-22 ">Upcoming Events</h2>
-      <div ref={ref} id="trip-container" className="trip-container">
-        {frontendTrip.map((list, index) => {
+      <div className="trip-container">
+        {availableTrips.map((list, index) => {
           return (
             <div
               key={index}
@@ -56,14 +42,6 @@ const TripPackages = ({ frontendTrip }) => {
             </div>
           );
         })}
-      </div>
-      <div className="flex justify-center mt-8">
-        <button onClick={() => scroll(-150)} className="arrow-button mr-4">
-          <i className="fa fa-chevron-left"></i>
-        </button>
-        <button className="arrow-button">
-          <i onClick={() => scroll(150)} className="fa fa-chevron-right"></i>
-        </button>
       </div>
     </div>
   );

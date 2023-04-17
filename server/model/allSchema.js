@@ -14,7 +14,6 @@ const userSchema = new Schema({
     required: true,
     default: "client",
   },
-  bookings: [{ type: mongoose.Schema.Types.ObjectId, ref: "Booking" }],
 });
 const User = mongoose.model("User", userSchema);
 
@@ -25,19 +24,11 @@ const tripSchema = new mongoose.Schema(
     description: { type: String },
     startdate: { type: Date, required: true },
     enddate: { type: Date, required: true },
-    price: { type: Number, required: true },
+    personalPrice: { type: Number, required: true },
+    nonpersonalPrice: { type: Number, required: true },
     images: [String],
     inclusions: { type: [String] },
-    requests: [
-      {
-        userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        status: {
-          type: String,
-          enum: ["Pending", "Approved", "Rejected"],
-          default: "Pending",
-        },
-      },
-    ],
+    totalSeat: Number,
     available: {
       type: Boolean,
       set: function (v) {
@@ -53,14 +44,17 @@ const Trip = mongoose.model("Trip", tripSchema);
 
 // Booking information schema
 const bookingSchema = new mongoose.Schema({
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
-  tripId: { type: mongoose.Schema.Types.ObjectId, ref: "Trip", required: true },
-  date: { type: Date, required: true },
+  tripId: String,
+  name: String,
+  email: String,
+  phone: Number,
+  address: String,
+  date: { type: Date, default: new Date() },
   numPersons: { type: Number, required: true },
-  totalPrice: { type: Number, required: true },
+  price: { type: Number, required: true },
   category: {
     type: String,
-    enum: ["Personal", "Non-Personal"],
+    enum: ["Family", "Single"],
     required: true,
   },
   status: {
@@ -72,4 +66,18 @@ const bookingSchema = new mongoose.Schema({
 });
 const Booking = mongoose.model("Booking", bookingSchema);
 
-module.exports = { User, Trip, Booking };
+const requestTrip = new mongoose.Schema({
+  name: String,
+  email: String,
+  phone: Number,
+  place: String,
+  status: {
+    type: String,
+    enum: ["Pending", "Confirmed", "Cancelled"],
+    default: "Pending",
+    required: true,
+  },
+});
+const RequestTrip = mongoose.model("RequestTrip", requestTrip);
+
+module.exports = { User, Trip, Booking, RequestTrip };

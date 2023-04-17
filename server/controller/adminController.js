@@ -1,4 +1,4 @@
-const { Trip } = require("../model/allSchema");
+const { Trip, Booking } = require("../model/allSchema");
 
 const allTripget = async (req, res) => {
   try {
@@ -14,12 +14,19 @@ const allTripget = async (req, res) => {
 const postTrip = async (req, res) => {
   try {
     const trip = req.body;
+    // const { totalSeat, tripId } = trip;
+    // const person = await Booking.findById(tripId);
+
+    // const totalPerson = person.reduce((acc, cur) => acc + cur.numofPersons, 0);
+    // const remainSeat = totalSeat - totalPerson;
+    // console.log(person);
 
     const result = await Trip.create(trip);
     res.status(201);
     res.send(result);
   } catch (error) {
     res.status(400);
+    res.send(error);
     console.log(error);
   }
 };

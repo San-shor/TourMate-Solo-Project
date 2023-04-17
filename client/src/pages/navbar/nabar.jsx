@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({ isAuthenticated }) => {
   return (
     <div className="container">
       <div className="navbar">
@@ -16,15 +16,27 @@ const Navbar = () => {
             <Link to="/trip">Ready-Book-Trip</Link>
           </li>
           <li>
-            <Link to="/">Request Trip</Link>
+            <Link to="/request">Request Trip</Link>
           </li>
-
-          <li>
-            <Link to="/register">Register</Link>
-          </li>
-          <li>
-            <Link to="/login">Login</Link>
-          </li>
+          {isAuthenticated ? (
+            <>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link to="/logout">Logout</Link>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Link to="/register">Register</Link>
+              </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
+            </>
+          )}
         </nav>
       </div>
     </div>

@@ -15,8 +15,8 @@ const register = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ ...req.body, password: hashPassword });
     const { _id } = await newUser.save();
-    const token = jwt.sign({ _id }, SECRET_KEY);
-    res.status(201).send(token);
+    const accessToken = jwt.sign({ _id }, SECRET_KEY);
+    res.status(201).send(accessToken);
   } catch (error) {
     res.status(400).send({ messages: "Could not create User" });
   }
@@ -32,8 +32,8 @@ const login = async (req, res) => {
 
     if (!matchPass) throw new Error();
 
-    const token = jwt.sign({ _id: user._id }, SECRET_KEY);
-    res.status(200).send(token);
+    const accessToken = jwt.sign({ _id: user._id }, SECRET_KEY);
+    res.status(200).send({ accessToken });
   } catch (error) {
     res.status(401).send({ messages: "Username or password is incorrect" });
   }
@@ -49,4 +49,12 @@ const profile = async (req, res) => {
   }
 };
 
-module.exports = { register, login, profile };
+const logout = (req, res) => {
+  // REMOVE-START
+  // delete the token client side upon logout.
+  res.clearCookie("token");
+  // you would invalidate the token here.
+  // REMOVE-END
+};
+
+module.exports = { register, login, profile, logout };

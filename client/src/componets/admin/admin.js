@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import Dashboard from "./dashboard/dashboard";
+import "./admin.css";
 
 const Admin = () => {
   return (
@@ -7,9 +8,9 @@ const Admin = () => {
       <div className="w-[200px]">
         <Dashboard />
       </div>
-      <div className="flex-grow">
-        <Outlet></Outlet>
-      </div>
+      <div className="admin-image"></div>
+
+      <Outlet></Outlet>
     </div>
   );
 };
