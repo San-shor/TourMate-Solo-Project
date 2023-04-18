@@ -10,19 +10,22 @@ body {
   background-repeat: no-repeat;
   width: 100vw;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   height: 100vh;
 }
 
 .form {
-  background-color: #c1d1ec9c;
+  background-color: #fff;
   border-radius: 20px;
-  padding: 20px;
+  padding: 40px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
   width: 400px;
   text-align: center;
-  margin-right: 80px;
-  height: auto;
+  margin-right: auto;
+  margin-top: 5px;
+  height: 350px;
+  margin-left: auto;
 }
 
 .label {
@@ -37,8 +40,8 @@ body {
 .text {
   width: 90%;
   padding: 20px;
-  border: none;
-  border-radius: 5px;
+  border: 1px solid;
+  border-radius: 12px;
   margin-bottom: 20px;
   box-sizing: border-box;
   font-size: 14px;
@@ -62,7 +65,7 @@ body {
 
 .heading {
   font-family: "Playfair Display", serif;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   color: #2f3e55;
   font-size: 36px;
   font-weight: bold;
@@ -70,4 +73,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 2px;
   text-shadow: 2px 2px 4px #ccc;
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
 }

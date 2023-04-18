@@ -14,6 +14,7 @@ router.post("/logout", authMiddleware, usercontroller.logout);
 router.get("/trip", adminController.allTripget);
 router.post("/trip", adminController.postTrip);
 router.post("/trip/:id", adminController.updateTrip);
+router.post("/trip/:id", adminController.deleteTrip);
 
 //Booking
 router.get("/booking", bookingController.getBookingInfo);

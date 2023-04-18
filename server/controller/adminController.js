@@ -44,4 +44,16 @@ const updateTrip = async (req, res) => {
   }
 };
 
-module.exports = { allTripget, postTrip, updateTrip };
+const deleteTrip = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await Trip.findByIdAndDelete(id);
+    res.status(200);
+    res.send(result);
+  } catch (error) {
+    res.status(500);
+    console.log(error);
+  }
+};
+
+module.exports = { allTripget, postTrip, updateTrip, deleteTrip };

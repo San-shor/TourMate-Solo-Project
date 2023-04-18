@@ -5,7 +5,6 @@ const { Schema } = require("mongoose");
 const userSchema = new Schema({
   fullName: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  address: { type: String, required: true },
   phone: { type: Number, required: true },
   password: { type: String, required: true },
   role: {
@@ -21,7 +20,7 @@ const User = mongoose.model("User", userSchema);
 const tripSchema = new mongoose.Schema(
   {
     placeName: { type: String, required: true },
-    description: { type: String },
+    location: { type: String, required: true },
     startdate: { type: Date, required: true },
     enddate: { type: Date, required: true },
     personalPrice: { type: Number, required: true },
@@ -29,6 +28,7 @@ const tripSchema = new mongoose.Schema(
     images: [String],
     inclusions: { type: [String] },
     totalSeat: Number,
+    bookedSeat: { type: Number, default: 0 },
     available: {
       type: Boolean,
       set: function (v) {
@@ -48,6 +48,7 @@ const bookingSchema = new mongoose.Schema({
   name: String,
   email: String,
   phone: Number,
+  contact: Number,
   address: String,
   date: { type: Date, default: new Date() },
   numPersons: { type: Number, required: true },
@@ -67,6 +68,7 @@ const bookingSchema = new mongoose.Schema({
 const Booking = mongoose.model("Booking", bookingSchema);
 
 const requestTrip = new mongoose.Schema({
+  trip_id: String,
   name: String,
   email: String,
   phone: Number,

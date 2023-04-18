@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
 import "./bookForm.css";
+import Message from "../../pages/message/message";
 
 const initialState = {
   name: "",
   email: "",
   phone: "",
+  contatct: "",
   address: "",
   numPersons: "",
   category: "Family",
@@ -47,7 +49,7 @@ const BookingFormModal = ({ showModal, trip }) => {
   };
 
   return (
-    <Modal isOpen={showModal}>
+    <Modal className="" isOpen={showModal}>
       <div className="booking-form mx-auto px-4 py-6">
         <div className="logo-container">
           <img
@@ -61,7 +63,7 @@ const BookingFormModal = ({ showModal, trip }) => {
           <div className="sm:grid sm:grid-cols-2 sm:gap-6">
             <div className="mt-4 sm:mt-0">
               <label className="label">
-                <span className="label-text">Yur Name</span>
+                <span className="label-text">Your Name</span>
               </label>
               <input
                 type="text"
@@ -100,6 +102,19 @@ const BookingFormModal = ({ showModal, trip }) => {
                 onChange={handleChange}
               />
             </div>
+            <div className="mt-4 sm:mt-0">
+              <label className="label">
+                <span className="label-text">Emergency Contact</span>
+              </label>
+              <input
+                type="number"
+                placeholder="Type here"
+                className="input input-bordered w-full max-w-xs"
+                name="contact"
+                value={booking.contact}
+                onChange={handleChange}
+              />
+            </div>
             <div>
               <label className="label">
                 <span className="label-text">Address</span>
@@ -112,22 +127,6 @@ const BookingFormModal = ({ showModal, trip }) => {
                 value={booking.address}
                 onChange={handleChange}
               />
-            </div>
-          </div>
-          <div className="sm:grid sm:grid-cols-2 sm:gap-6">
-            <div>
-              <label className="label">
-                <span className="label-text">Num Of Person</span>
-              </label>
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full max-w-xs"
-                name="numPersons"
-                value={booking.numPersons}
-                onChange={handleChange}
-              />
-              <p>Seats available: {trip.totalSeat} </p>
             </div>
             <div>
               <label className="label">
@@ -146,9 +145,23 @@ const BookingFormModal = ({ showModal, trip }) => {
               </select>
             </div>
           </div>
-          <div>
-            <h3>Family Packages: {trip.personalPrice} (Per Person)</h3>
-            <h3>Single Packages: {trip.nonpersonalPrice} (Per Person)</h3>
+          <div className="sm:grid sm:grid-cols-2 sm:gap-6">
+            <div>
+              <label className="label">
+                <span className="label-text">Num Of Person</span>
+              </label>
+              <input
+                type="number"
+                placeholder="Type here"
+                className="input input-bordered w-full max-w-xs"
+                name="numPersons"
+                value={booking.numPersons}
+                onChange={handleChange}
+              />
+              <p className="text-sm ml-10">
+                Seats available: {trip.totalSeat - trip.bookedSeat}
+              </p>
+            </div>
           </div>
 
           <div className="sm:grid sm:grid-cols-2 sm:gap-6">

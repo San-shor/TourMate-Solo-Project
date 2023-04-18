@@ -4,7 +4,7 @@ import "./admin.css";
 
 const Admin = () => {
   return (
-    <div className="flex ">
+    <div className="flex  overflow-scroll h-full">
       <div className="w-[200px]">
         <Dashboard />
       </div>

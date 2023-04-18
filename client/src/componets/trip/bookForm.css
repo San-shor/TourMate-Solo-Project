@@ -37,3 +37,11 @@
 .terms {
   font-weight: bold;
 }
+.ReactModal__Overlay {
+  z-index: 30;
+}
+.ReactModal__Content {
+  width: 680px;
+  margin: auto;
+  background-color: #e9ecef;
+}

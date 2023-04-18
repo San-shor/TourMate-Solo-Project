@@ -41,8 +41,8 @@ const login = async (req, res) => {
 
 const profile = async (req, res) => {
   try {
-    const { _id, fullName, address, phone, bookings } = req.user;
-    const user = { _id, fullName, address, phone, bookings };
+    const { _id, fullName, phone } = req.user;
+    const user = { _id, fullName, phone };
     res.status(200).send(user);
   } catch (error) {
     res.status(404).send({ message: "User not Found" });
@@ -50,11 +50,12 @@ const profile = async (req, res) => {
 };
 
 const logout = (req, res) => {
-  // REMOVE-START
-  // delete the token client side upon logout.
   res.clearCookie("token");
-  // you would invalidate the token here.
-  // REMOVE-END
+  const accessToken = req.cookies.token;
+  if (accessToken) {
+    invalidateToken(accessToken);
+  }
+  res.redirect("/login");
 };
 
 module.exports = { register, login, profile, logout };

@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = ({ isAuthenticated }) => {
   return (
-    <div className="container">
+    <div className="container shadow-md">
       <div className="navbar">
         <div className="header-logo">
           <img

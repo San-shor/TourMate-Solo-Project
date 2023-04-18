@@ -1,12 +1,16 @@
-.add-trip {
+/* .add-trip {
   background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.1);
   padding: 2rem;
   max-width: 600px;
   margin-top: 20px;
-  height: 600px; /* set a fixed height */
-  overflow-y: auto; /* add scrolling */
+  height: 600px; 
+  overflow-y: auto; 
+} */
+.add-trip {
+  height: 600px;
+  overflow: scroll;
 }
 
 .label {

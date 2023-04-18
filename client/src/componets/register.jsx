@@ -8,7 +8,6 @@ const Register = (props) => {
   const initialState = {
     fullName: "",
     email: "",
-    address: "",
     phone: "",
     password: "",
   };
@@ -26,9 +25,9 @@ const Register = (props) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { email, password, fullName, address, phone } = formValue;
+    const { email, password, fullName, phone } = formValue;
 
-    const user = { email, password, fullName, address, phone };
+    const user = { email, password, fullName, phone };
     try {
       const response = await apiServiceJWT.register(user);
       auth.login(() => {
@@ -45,8 +44,7 @@ const Register = (props) => {
       !formValue.email ||
       !formValue.password ||
       !formValue.fullName ||
-      !formValue.phone ||
-      !formValue.address
+      !formValue.phone
     );
   };
 
@@ -92,14 +90,6 @@ const Register = (props) => {
               value={formValue.phone}
               onChange={handleChange}
             ></input>
-            <br />
-            <textarea
-              name="address"
-              className="input input-bordered w-full max-w-xs"
-              placeholder="Enter your address"
-              value={formValue.address}
-              onChange={handleChange}
-            ></textarea>
             <br />
             <input
               type="submit"

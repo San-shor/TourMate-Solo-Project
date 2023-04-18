@@ -14,25 +14,25 @@ const getBookingInfo = async (req, res) => {
 const postBooking = async (req, res) => {
   try {
     const booking = req.body;
-    const { numPersons, tripId } = booking;
+    const { numPersons, tripId, bookedSeat } = booking;
     const trip = await Trip.findById(tripId);
     const personalprice = numPersons * trip.personalPrice;
     const nonpersonalprice = numPersons * trip.nonpersonalPrice;
+    let result;
     if (personalprice) {
-      const result = await Booking.create({
+      result = await Booking.create({
         ...booking,
         price: personalprice,
       });
-      res.status(201);
-      res.send(result);
     } else {
-      const result = await Booking.create({
+      result = await Booking.create({
         ...booking,
         price: nonpersonalprice,
       });
-      res.status(201);
-      res.send(result);
     }
+    await Trip.findByIdAndUpdate(tripId, { $inc: { bookedSeat: numPersons } });
+    res.status(201);
+    res.send(result);
   } catch (error) {
     res.status(400);
     res.send(error);

@@ -10,10 +10,12 @@ const TripList = ({ trip }) => {
             <tr>
               <th></th>
               <th>Place Name</th>
-              <th>Description</th>
+              <th>location</th>
               <th>Start Date</th>
               <th>End Date</th>
-              <th>Inclusions</th>
+              <th>Total Seat</th>
+              <th>Single Package</th>
+              <th>Family Packages</th>
               <th>Available</th>
               <th></th>
             </tr>
@@ -24,12 +26,14 @@ const TripList = ({ trip }) => {
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{list.placeName}</td>
-                  <td>{list.description}</td>
+                  <td>{list.location}</td>
                   <td>
                     {new Date(list.startdate).toLocaleDateString("en-US")}
                   </td>
                   <td> {new Date(list.enddate).toLocaleDateString("en-US")}</td>
-                  <td>{list.inclusions}</td>
+                  <td>{list.totalSeat}</td>
+                  <td>{list.personalPrice} BDT</td>
+                  <td>{list.nonpersonalPrice} BDT</td>
                   <td>{list.available.toString()}</td>
 
                   <td>

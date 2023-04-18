@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClipboardCheck,
+  faUserCheck,
+} from "@fortawesome/free-solid-svg-icons";
 
 import "./dashboard.css";
 import {
@@ -46,11 +51,29 @@ const Dashboard = () => {
             </li>
             <li>
               <Link
+                to="/admin/requested"
+                className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white  nav-link"
+              >
+                <FontAwesomeIcon icon={faPaperPlane} className="mr-2" />
+                <span className="nav-text">Requested Trip</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                to="/admin/booking"
+                className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white  nav-link"
+              >
+                <FontAwesomeIcon icon={faClipboardCheck} className="mr-2" />
+                <span className="nav-text">Booking Trip</span>
+              </Link>
+            </li>
+            <li>
+              <Link
                 to="/admin/users"
                 className="flex items-center px-4 py-2 text-gray-300 hover:bg-gray-700 hover:text-white  nav-link"
               >
-                <FontAwesomeIcon icon={faUsers} className="mr-2" />
-                <span className="nav-text">User</span>
+                <FontAwesomeIcon icon={faUserCheck} className="mr-2" />
+                <span className="nav-text">Travel User</span>
               </Link>
             </li>
           </ul>
