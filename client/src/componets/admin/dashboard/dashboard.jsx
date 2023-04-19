@@ -43,11 +43,6 @@ const Dashboard = () => {
       link_to: "/admin/booking",
       icon: faClipboardCheck,
     },
-    {
-      label: "Travel User",
-      link_to: "/admin/users",
-      icon: faUserCheck,
-    },
   ];
 
   return (

@@ -79,9 +79,6 @@ const TripList = ({ trip, fetchTrip }) => {
 
                   <td>
                     <div className="flex justify-center action-buttons">
-                      <button>
-                        <i className="fa fa-pencil"></i>
-                      </button>
                       <button onClick={() => handleDelete(list._id)}>
                         <i className="fa fa-trash"></i>
                       </button>

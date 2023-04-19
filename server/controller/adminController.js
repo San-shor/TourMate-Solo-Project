@@ -1,12 +1,5 @@
 const { Trip, Booking, RequestTrip } = require("../model/allSchema");
-const cloudinary = require("cloudinary").v2;
 const { getTripsWithBoking } = require("./bookingController");
-
-cloudinary.config({
-  cloud_name: "diomcrrey",
-  api_key: "525781244724321",
-  api_secret: "yOqqrfTyepok12ISJwkSj4roPhQ",
-});
 
 const getBoardData = async (req, res) => {
   const tripsList = await getTripsWithBoking();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import apiServiceJWT from "../../service/apiserviceJwt";
-import "./profile.css";
+
 import { FaUserCircle } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import BookingInfo from "../admin/bookingInfo";
