@@ -18,7 +18,7 @@ const Navbar = ({ isAuthenticated }) => {
           <li>
             <Link to="/request">Request Trip</Link>
           </li>
-          {isAuthenticated ? (
+          {localStorage.getItem("accessToken") ? (
             <>
               <li>
                 <Link to="/profile">Profile</Link>

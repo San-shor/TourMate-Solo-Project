@@ -19,10 +19,11 @@ import Profile from "./componets/profile/profile";
 
 import RequestedInfo from "./componets/admin/requestedTrip";
 import BookingInfo from "./componets/admin/bookingInfo";
+import Footer from "./componets/footer";
+import AdminHome from "./componets/admin/home/home";
 
 function App() {
   const [trip, setTrip] = useState([]);
-  const [bookingTrip, setBookingTrip] = useState([]);
 
   const fetchData = () => {
     fetch("http://localhost:4000/trip")
@@ -33,17 +34,6 @@ function App() {
   };
   useEffect(() => {
     fetchData();
-  }, []);
-
-  const fetchBooking = () => {
-    fetch("http://localhost:4000/booking")
-      .then((res) => res.json())
-      .then((data) => {
-        setBookingTrip(data);
-      });
-  };
-  useEffect(() => {
-    fetchBooking();
   }, []);
 
   const initialState = auth.isAuthenticated();
@@ -65,7 +55,7 @@ function App() {
             path="/request"
             element={
               <>
-                <Navbar></Navbar>
+                <Navbar isAuthenticated={isAuthenticated}></Navbar>
                 <RequestTrip FalseTrip={trip} />
               </>
             }
@@ -74,7 +64,7 @@ function App() {
             path="/trip"
             element={
               <>
-                <Navbar />
+                <Navbar isAuthenticated={isAuthenticated} />
                 <TripPackages TrueTrip={trip} />
               </>
             }
@@ -83,34 +73,60 @@ function App() {
             path="/details/:id"
             element={
               <>
-                <Navbar />
+                <Navbar isAuthenticated={isAuthenticated} />
                 <TripDetails tripid={trip} />
               </>
             }
           />
-          <Route path="/profile" element={<Profile />} />
+          <Route
+            path="/profile"
+            element={
+              <>
+                <Navbar isAuthenticated={isAuthenticated} />
+
+                <Profile />
+              </>
+            }
+          />
           <Route
             path="/register"
-            element={<Register setIsAuthenticated={setIsAuthenticated} />}
+            element={
+              <>
+                <Navbar isAuthenticated={isAuthenticated} />
+
+                <Register setIsAuthenticated={setIsAuthenticated} />
+              </>
+            }
           ></Route>
           <Route
             path="/login"
-            element={<Login setIsAuthenticated={setIsAuthenticated} />}
+            element={
+              <>
+                <Navbar isAuthenticated={isAuthenticated} />
+                <Login setIsAuthenticated={setIsAuthenticated} />
+              </>
+            }
           ></Route>
           <Route
             path="/logout"
-            element={<Logout setIsAuthenticated={setIsAuthenticated} />}
+            element={
+              <>
+                <Navbar isAuthenticated={isAuthenticated} />
+                <Logout setIsAuthenticated={setIsAuthenticated} />
+              </>
+            }
           />
 
           <Route path="/admin/*" element={<Admin />}>
-            <Route path="triplist" element={<TripList trip={trip} />} />
-            <Route path="addtrip" element={<AddTrip fetch={fetchData} />} />
+            <Route path="board" element={<AdminHome />}></Route>
+            <Route
+              path="triplist"
+              element={<TripList trip={trip} fetchTrip={fetchData} />}
+            />
+            <Route path="addtrip" element={<AddTrip fetchTrip={fetchData} />} />
 
             <Route path="requested" element={<RequestedInfo />} />
-            <Route
-              path="booking"
-              element={<BookingInfo bookingtrip={bookingTrip} />}
-            />
+            <Route path="booking" element={<BookingInfo />} />
           </Route>
         </Routes>
       </BrowserRouter>

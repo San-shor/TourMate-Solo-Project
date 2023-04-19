@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import apiServiceJWT from "../../service/apiserviceJwt";
 import "./profile.css";
 import { FaUserCircle } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import BookingInfo from "../admin/bookingInfo";
 
 const initialState = {
   fullName: "",
@@ -14,6 +16,7 @@ const Profile = () => {
   const fullName = profile.fullName;
   const email = profile.email;
   const phone = profile.phone;
+  let navigate = useNavigate();
 
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
@@ -31,32 +34,20 @@ const Profile = () => {
         });
       } else {
         console.log("No user info found 😞");
+        navigate("/");
       }
     };
     getProfile(accessToken);
   }, []);
 
   return (
-    <section className="p-6 flex justify-between items-center">
-      <div>
-        <h2 className="text-2xl font-bold mb-2">My Profile</h2>
-        <div className="bg-white shadow-md rounded-lg p-6">
-          <h3 className="text-lg font-semibold mb-4">
-            Welcome back, {fullName}! Everything is fine.
-          </h3>
-          <div className="grid grid-cols-2 gap-4">
-            <p className="text-gray-600 mb-2">
-              <span className="font-bold">Email:</span> {email}
-            </p>
-            <p className="text-gray-600 mb-2">
-              <span className="font-bold">Phone:</span> {phone}
-            </p>
-          </div>
-        </div>
+    <section className="p-6 h-screen overflow-y-scroll">
+      <div className=" w-full flex  justify-center flex-col items-center">
+        <FaUserCircle fontSize={50} className=" text-gray-600" />
+        <p>{fullName}</p>
+        <p>{email}</p>
       </div>
-      <div>
-        <FaUserCircle className="text-3xl text-gray-600" />
-      </div>
+      {fullName && <BookingInfo username={fullName} />}
     </section>
   );
 };

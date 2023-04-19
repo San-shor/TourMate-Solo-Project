@@ -7,10 +7,10 @@ const Modal = ({ children, onClose }) => {
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75"></div>
         <div className="bg-white rounded-lg p-4 z-10">{children}</div>
         <button
-          className="absolute top-0 right-0 m-4 text-black hover:text-gray-700"
+          className="absolute top-0 right-0 m-4 bg-red-700 text-white p-2 pl-4 pr-4 rounded-full"
           onClick={onClose}
         >
-          Close
+          X
         </button>
       </div>
     </div>

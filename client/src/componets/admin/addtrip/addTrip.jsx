@@ -12,22 +12,26 @@ const initialState = {
   enddate: "",
   personalPrice: "",
   nonpersonalPrice: "",
-  //images: "",
+  images: [],
   inclusions: "",
   exclusion: "",
   totalSeat: "",
   bookedSeat: "0",
   available: "true",
 };
-const myImage = new CloudinaryImage("sample", {
-  cloudName: "diomcrrey",
-}).resize(fill().width(100).height(150));
-const AddTrip = () => {
+
+const AddTrip = ({ fetchTrip }) => {
   const [trip, setTrip] = useState(initialState);
+  const [imageFiles, setImageFiles] = useState([]);
+
+  const handleFilechange = (e) => {
+    const files = e.target.files;
+    setImageFiles(files);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log(name, value);
+    //console.log(name, value);
     setTrip((prevState) => ({
       ...prevState,
       [name]: value,
@@ -36,7 +40,25 @@ const AddTrip = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
+      const images = imageFiles;
+      for (let i = 0; i < images.length; i++) {
+        const cloudinaryUploadData = new FormData();
+        cloudinaryUploadData.append("file", images[i]);
+        cloudinaryUploadData.append("upload_preset", "tourmate");
+        cloudinaryUploadData.append("public_id", Date.now());
+        const response = await fetch(
+          "https://api.cloudinary.com/v1_1/diomcrrey/image/upload",
+          {
+            method: "POST",
+            body: cloudinaryUploadData,
+          }
+        );
+        const data = await response.json();
+        console.log("Cloudinary upload response:", data);
+        trip.images[i] = data.secure_url;
+      }
       const response = await fetch("http://localhost:4000/trip", {
         method: "POST",
         headers: {
@@ -48,6 +70,7 @@ const AddTrip = () => {
         const data = await response.json();
         console.log(trip);
         setTrip(initialState);
+        fetchTrip();
 
         alert("Trip added successfully!");
       } else {
@@ -60,7 +83,11 @@ const AddTrip = () => {
   return (
     <div className="add-trip mx-auto px-4 py-6 ">
       <h1 className="text-2xl font-semibold mb-4">Add a New Trip</h1>
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 gap-6">
+      <form
+        onSubmit={handleSubmit}
+        className="grid grid-cols-1 gap-6"
+        enctype="multipart/form-data"
+      >
         <div className="sm:grid sm:grid-cols-2 sm:gap-6">
           <div className="mt-4 sm:mt-0">
             <label className="label">
@@ -206,6 +233,18 @@ const AddTrip = () => {
                 value={trip.bookedSeat}
                 onChange={handleChange}
                 defaultValue="0"
+              />
+            </label>
+          </div>
+          <div>
+            <label className="label">
+              <span className="label-text">Image</span>
+              <input
+                type="file"
+                className="select select-bordered w-full max-w-xs"
+                name="images[]"
+                onChange={handleFilechange}
+                multiple
               />
             </label>
           </div>

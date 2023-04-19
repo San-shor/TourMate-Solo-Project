@@ -1,58 +1,52 @@
 .table-container {
-  max-width: 90%;
-  overflow-x: auto;
+  margin: 2rem auto;
+  padding: 1rem;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .table {
-  margin-top: 20px;
-  margin-left: 15px;
-  width: 90%;
   border-collapse: collapse;
-  font-size: 14px;
-  line-height: 20px;
+  width: 100%;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  text-align: center;
 }
 
 .table th,
 .table td {
-  padding: 12px 8px;
-  text-align: left;
+  padding: 0.5rem;
+  border-bottom: 1px solid #ddd;
 }
 
 .table th {
-  background-color: #031a29;
+  background-color: #022036;
+  color: white;
   font-weight: bold;
-  color: #ffffff;
-  border-bottom: 2px solid #edf2f7;
-  text-transform: uppercase;
 }
 
-.table td {
-  background-color: #fff;
-  font-weight: 600;
-  color: #3c4870;
-  border-bottom: 1px solid #edf2f7;
-}
-
-.table tbody tr:nth-child(even) td {
+.table tr:hover {
   background-color: #f2f2f2;
 }
 
-.action-buttons {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .action-buttons button {
-  background: transparent;
+  background-color: transparent;
   border: none;
-  margin: 0 4px;
-  padding: 0;
-  color: #f71d12;
-  font-size: 16px;
-  transition: color 0.2s ease-in-out;
+  margin: 0 0.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .action-buttons button:hover {
-  color: #4a5568;
+  transform: scale(1.1);
+}
+
+.action-buttons button i {
+  font-size: 1.2rem;
+  color: #ab2e25;
+}
+
+.action-buttons button:first-of-type i {
+  color: #5e5e5e;
 }

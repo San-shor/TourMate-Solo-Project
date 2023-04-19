@@ -25,13 +25,13 @@ const TripPackages = ({ TrueTrip, location }) => {
     );
   });
   return (
-    <div className="flex flex-row justify-between mt-5 overflow-auto h-[400px]">
+    <div className="flex flex-row justify-between pt-5 pb-96 overflow-auto  h-[80vh]">
       {/* Filter options */}
       <div className="flex flex-col">
         <div className="filter-title fixed">
           <h5 className="header-title"></h5>
         </div>
-        <div className="price-range pl-7 pr-8">
+        <div className="price-range pl-7 pr-8 ">
           <h5 className="font-bold">Filter Trips</h5>
           <div className="mt-6">
             <div className="input-range-wrapper">

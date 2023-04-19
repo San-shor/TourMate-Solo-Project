@@ -1,4 +1,41 @@
-const { Trip, Booking } = require("../model/allSchema");
+const { Trip, Booking, RequestTrip } = require("../model/allSchema");
+const cloudinary = require("cloudinary").v2;
+const { getTripsWithBoking } = require("./bookingController");
+
+cloudinary.config({
+  cloud_name: "diomcrrey",
+  api_key: "525781244724321",
+  api_secret: "yOqqrfTyepok12ISJwkSj4roPhQ",
+});
+
+const getBoardData = async (req, res) => {
+  const tripsList = await getTripsWithBoking();
+  const data = {
+    trips: [],
+  };
+
+  tripsList.forEach((item) => {
+    data.trips.push({
+      placeName: item.placeName,
+      bookingCount: item.booked.length,
+    });
+  });
+
+  const requestTip = await RequestTrip.aggregate([
+    {
+      $group: {
+        _id: "$place",
+        toatlRequestedSeats: { $sum: "$seats" },
+        toalCount: { $count: {} },
+      },
+    },
+  ]);
+
+  data["requestedTips"] = requestTip;
+
+  res.status(200);
+  res.send(data);
+};
 
 const allTripget = async (req, res) => {
   try {
@@ -8,19 +45,15 @@ const allTripget = async (req, res) => {
   } catch (error) {
     res.status(400);
     console.log(error);
+    res.send(error);
   }
 };
 
 const postTrip = async (req, res) => {
   try {
     const trip = req.body;
-    // const { totalSeat, tripId } = trip;
-    // const person = await Booking.findById(tripId);
-
-    // const totalPerson = person.reduce((acc, cur) => acc + cur.numofPersons, 0);
-    // const remainSeat = totalSeat - totalPerson;
-    // console.log(person);
-
+    // const image = await cloudinary.uploader.upload(req.file.path);
+    // trip.imageUrl = image.secure_url;
     const result = await Trip.create(trip);
     res.status(201);
     res.send(result);
@@ -56,4 +89,4 @@ const deleteTrip = async (req, res) => {
   }
 };
 
-module.exports = { allTripget, postTrip, updateTrip, deleteTrip };
+module.exports = { allTripget, postTrip, updateTrip, deleteTrip, getBoardData };

@@ -50,8 +50,9 @@ const Register = (props) => {
 
   return (
     <div className="login">
+      <h1 className="heading">Sign Up</h1>
+
       <div className="form">
-        <h1 className="heading">Register</h1>
         <form onSubmit={handleSubmit}>
           <div className="input-container">
             <input
@@ -62,7 +63,7 @@ const Register = (props) => {
               value={formValue.fullName}
               onChange={handleChange}
             ></input>
-            <br />
+
             <input
               type="email"
               name="email"
@@ -72,16 +73,7 @@ const Register = (props) => {
               value={formValue.email}
               onChange={handleChange}
             />
-            <br />
-            <input
-              type="password"
-              name="password"
-              className="text"
-              placeholder="Enter your password"
-              value={formValue.password}
-              onChange={handleChange}
-            />
-            <br />
+
             <input
               name="phone"
               type="tel"
@@ -90,7 +82,16 @@ const Register = (props) => {
               value={formValue.phone}
               onChange={handleChange}
             ></input>
-            <br />
+
+            <input
+              type="password"
+              name="password"
+              className="text"
+              placeholder="Enter your password"
+              value={formValue.password}
+              onChange={handleChange}
+            />
+
             <input
               type="submit"
               value="Submit"

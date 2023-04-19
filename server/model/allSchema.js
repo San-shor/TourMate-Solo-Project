@@ -73,6 +73,7 @@ const requestTrip = new mongoose.Schema({
   email: String,
   phone: Number,
   place: String,
+  seats: Number,
   status: {
     type: String,
     enum: ["Pending", "Confirmed", "Cancelled"],

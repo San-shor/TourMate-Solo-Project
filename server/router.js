@@ -13,15 +13,19 @@ router.post("/logout", authMiddleware, usercontroller.logout);
 //admin site
 router.get("/trip", adminController.allTripget);
 router.post("/trip", adminController.postTrip);
-router.post("/trip/:id", adminController.updateTrip);
-router.post("/trip/:id", adminController.deleteTrip);
+router.put("/trip/:id", adminController.updateTrip);
+router.delete("/trip/:id", adminController.deleteTrip);
+router.get("/get-overal-data", adminController.getBoardData);
 
 //Booking
 router.get("/booking", bookingController.getBookingInfo);
+router.get("/booking/:username", bookingController.getBookingInfo);
 router.post("/booking", bookingController.postBooking);
+router.put("/booking/:id", bookingController.updateBooking);
 
 //Request
 router.get("/request", requestController.getRequest);
 router.post("/request", requestController.postRequest);
+router.put("/request/:id", requestController.updateRequest);
 
 module.exports = router;

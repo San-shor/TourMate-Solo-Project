@@ -1,9 +1,50 @@
 import { useState } from "react";
+
 import "./triplist.css";
 
-const TripList = ({ trip }) => {
+const TripList = ({ trip, fetchTrip }) => {
+  const [tripList, setTripList] = useState(trip);
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:4000/trip/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (response.ok) {
+        alert("Trips deleted successfully");
+        fetchTrip();
+      } else {
+        alert("Error occurred while deleting booking");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  // const handleUpdate = async (id, updatedBookingData) => {
+  //   try {
+  //     const response = await fetch(`http://localhost:4000/trip/${id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify(updatedBookingData),
+  //     });
+  //     if (response.ok) {
+  //       alert("Booking updated successfully");
+  //     } else {
+  //       alert("Error occurred while updating booking");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   return (
-    <div className="flex justify-between text-center overflow-x-auto table-container">
+    <div className=" text-center overflow-x-auto table-container">
+      <div className="text-left">
+        <h1 className="text-2xl ml-5 mt-5">Trip List </h1>
+      </div>
       <div>
         <table className="table w-full ">
           <thead>
@@ -41,7 +82,7 @@ const TripList = ({ trip }) => {
                       <button>
                         <i className="fa fa-pencil"></i>
                       </button>
-                      <button>
+                      <button onClick={() => handleDelete(list._id)}>
                         <i className="fa fa-trash"></i>
                       </button>
                     </div>

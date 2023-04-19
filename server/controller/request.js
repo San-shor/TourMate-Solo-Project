@@ -31,4 +31,21 @@ const postRequest = async (req, res) => {
   }
 };
 
-module.exports = { getRequest, postRequest };
+const updateRequest = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const update = req.body;
+    console.log(update);
+    const result = await RequestTrip.findByIdAndUpdate(id, update, {
+      new: true,
+    });
+    res.status(200);
+    res.send(result);
+  } catch (error) {
+    res.status(500);
+    console.log(error);
+    res.send(error);
+  }
+};
+
+module.exports = { getRequest, postRequest, updateRequest };

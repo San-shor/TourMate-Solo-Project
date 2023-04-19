@@ -21,14 +21,18 @@ const Logout = (props) => {
   };
 
   return (
-    <section>
-      <h2>Are you sure you want to log out?</h2>
-      <Link to="/">
-        <button className="confirm-btn">No</button>
-      </Link>
-      <button className="confirm-btn" onClick={() => handleClick()}>
-        Yes
-      </button>
+    <section className="w-10/12 mx-auto h-screen flex flex-col  items-center  mt-24 gap-5 ">
+      <h2 className=" font-semibold text-xl">
+        Are you sure you want to log out?
+      </h2>
+      <div className="flex gap-5">
+        <Link to="/">
+          <button className="btn btn-warning">No</button>
+        </Link>
+        <button className="btn btn-primary" onClick={() => handleClick()}>
+          Yes
+        </button>
+      </div>
     </section>
   );
 };

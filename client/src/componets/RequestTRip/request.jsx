@@ -7,12 +7,22 @@ const initialState = {
   name: "",
   email: "",
   phone: "",
+  seats: "",
 };
 
 const RequestTrip = ({ FalseTrip }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedLocation, setSelectedLocation] = useState("");
   const [requestTripId, setrequestId] = useState("");
+
+  const [isloggedin, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   //filter location
   const availableTrips = FalseTrip.filter((trip) => {
@@ -89,7 +99,7 @@ const RequestTrip = ({ FalseTrip }) => {
     }, [tourDate]);
     const { days, hours, minutes, seconds } = timerObject;
     return (
-      <div className="flex justify-center items-center h-[100px] bg-[#f2f2f2] rounded-md p-3 ml-20">
+      <div className="flex justify-center items-center h-[100px] bg-[#f2f2f2] rounded-md p-3">
         <div className="text-2xl font-bold flex justify-center items-center text-center">
           <div>{days}</div>
           <div className="text-2xl font-bold mt-0 mr-3">:</div>
@@ -105,64 +115,66 @@ const RequestTrip = ({ FalseTrip }) => {
 
   return (
     <div>
-      <div className="filter-loaction flex flex-row justify-start overflow-auto h-[400px]">
-        <h5>Location</h5>
-        <div className="location-checkboxes flex flex-col gap-4">
-          <div>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                value="Chattogram"
-                onChange={handleLocationChange}
-              ></input>
+      <div className="filter-loaction flex flex-row justify-start overflow-y-scroll h-[90vh] p-5">
+        <div>
+          <h5 className="font-bold  text-blue-950  p-3">Location</h5>
+          <div className="location-checkboxes flex flex-col gap-4 p-4">
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  value="Chattogram"
+                  onChange={handleLocationChange}
+                ></input>
 
-              <span>Chattogram</span>
-            </label>
-          </div>
-          <div>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                value="Cox'sBazar"
-                onChange={handleLocationChange}
-              ></input>
+                <span className="ml-3">Chattogram</span>
+              </label>
+            </div>
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  value="Cox'sBazar"
+                  onChange={handleLocationChange}
+                ></input>
 
-              <span>Cox'sBazar</span>
-            </label>
-          </div>
-          <div>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                value="Sylhet"
-                onChange={handleLocationChange}
-              ></input>
-              <span>Sylhet</span>
-            </label>
-          </div>
-          <div>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                value="Bandarban"
-                onChange={handleLocationChange}
-              ></input>
-              <span>Bandarban</span>
-            </label>
-          </div>
-          <div>
-            <label className="flex items-center">
-              <input
-                type="checkbox"
-                value="Khulna"
-                onChange={handleLocationChange}
-              ></input>
-              <span>Khulna</span>
-            </label>
+                <span className="ml-3">Cox'sBazar</span>
+              </label>
+            </div>
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  value="Sylhet"
+                  onChange={handleLocationChange}
+                ></input>
+                <span className="ml-3">Sylhet</span>
+              </label>
+            </div>
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  value="Bandarban"
+                  onChange={handleLocationChange}
+                ></input>
+                <span className="ml-3">Bandarban</span>
+              </label>
+            </div>
+            <div>
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  value="Khulna"
+                  onChange={handleLocationChange}
+                ></input>
+                <span className="ml-3">Khulna</span>
+              </label>
+            </div>
           </div>
         </div>
         <div className="flex flex-col flex-1 items-center  ">
-          <h2 className=" mt-6">Request Events</h2>
+          <h2 className="text-2xl font-bold">Request a Trips</h2>
           <div className=" w-full">
             {availableTrips.map((list, index) => {
               return (
@@ -172,7 +184,7 @@ const RequestTrip = ({ FalseTrip }) => {
                       key={index}
                       className="bg-white rounded-lg shadow-lg p-4 trip-card mb-4 flex flex-col"
                     >
-                      <div className="image-container w-64 h-52 overflow-hidden mb-2">
+                      <div className="image-container w-full h-52 overflow-hidden mb-2">
                         <img src={list.images} className="w-full rounded-lg" />
                       </div>
                       <div className="flex justify-between items-center mb-2">
@@ -206,20 +218,34 @@ const RequestTrip = ({ FalseTrip }) => {
                       </div>
                     </div>
                   </div>
-                  <div className="ml-32">
+                  <div className="w-80 p-5">
                     <CountdownTimer tourDate={list.startdate} />
-                    <h3>Do you want to available it?</h3>
-                    <h4>Please Sent Request</h4>
-                    <button
-                      onClick={() => {
-                        setIsModalOpen(true);
-                        setrequestId(list._id);
-                      }}
-                      className="bg-green-800 align-center text-white font-bold py-2 px-4 rounded"
-                      type="submit"
-                    >
-                      Sent
-                    </button>
+                    <div className="flex flex-col justify-center text-center">
+                      <h3>Do you want to available it?</h3>
+                      <h4>Please Sent Request</h4>
+                      {isloggedin ? (
+                        <button
+                          onClick={() => {
+                            setIsModalOpen(true);
+                            setrequestId(list._id);
+                          }}
+                          className="bg-green-800  mt-5 text-white font-bold py-2 px-4 rounded tooltip"
+                          type="submit"
+                          data-tip="Sent Request"
+                        >
+                          Sent
+                        </button>
+                      ) : (
+                        <div
+                          className="tooltip "
+                          data-tip="Sign Up to sent request"
+                        >
+                          <button disabled className="btn">
+                            Sent
+                          </button>
+                        </div>
+                      )}
+                    </div>
                     {isModalOpen && (
                       <Modal onClose={() => setIsModalOpen(false)}>
                         <form>
@@ -229,6 +255,7 @@ const RequestTrip = ({ FalseTrip }) => {
                             placeholder="Your name"
                             value={request.name}
                             onChange={handleChange}
+                            required
                           ></input>
                           <input
                             name="email"
@@ -236,14 +263,25 @@ const RequestTrip = ({ FalseTrip }) => {
                             onChange={handleChange}
                             type="email"
                             placeholder="Your email"
+                            required
                           ></input>
                           <input
                             name="phone"
-                            type="phone"
+                            type="number"
                             value={request.phone}
                             onChange={handleChange}
                             placeholder="Your Phone"
+                            required
                           ></input>
+                          <input
+                            name="seats"
+                            type="number"
+                            value={request.seats}
+                            onChange={handleChange}
+                            placeholder="How many seats you will need?"
+                            required
+                          ></input>
+
                           <button
                             onClick={handleSubmit}
                             className="bg-blue-900 text-white font-bold py-2 px-4 rounded"
